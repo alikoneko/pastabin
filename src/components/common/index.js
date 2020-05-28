@@ -1,5 +1,6 @@
 export { default as Layout } from './Layout'
 export { default as PostCard } from './PostCard'
 export { default as TagCard } from './TagCard'
+export { default as AuthorCard } from './AuthorCard'
 export { default as Pagination } from './Pagination'
 export { default as Navigation } from './Navigation'

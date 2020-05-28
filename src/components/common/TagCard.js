@@ -17,10 +17,7 @@ const TagCard = ({ tag }) => {
             <section className="post-card-excerpt">{tag.description}</section>
             <footer className="post-card-footer">
                 <div className="post-card-footer-left">
-                    &nbsp;
-                </div>
-                <div className="post-card-footer-right">
-                    <div>Posts tagged: {tag.postCount}</div>
+                    <div> # tagged: {tag.postCount}</div>
                 </div>
             </footer>
         </Link>

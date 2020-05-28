@@ -2,29 +2,26 @@ import React from 'react'
 import { Link, graphql } from 'gatsby'
 import PropTypes from 'prop-types'
 
-import { Layout, TagCard } from '../components/common'
+import { Layout, TagCard, Pagination } from '../components/common'
 import { MetaData } from '../components/common/meta'
 
-const Tags = ({ data }) => {
+const Tags = ({ data, location, pageContext }) => {
     let tags = data.allGhostTag.edges
     return (
-        <div>
-            <MetaData location={location} />
-            <Layout>
-                <div>
-                    <h1>
-                        Tags<br/>
-                    </h1>
-                    {
-                        tags.map(node => {
-                            return (
-                                <TagCard id={node.node.slug} tag={node.node}/>
-                            )
-                        })
-                    }
-                </div>
-            </Layout>
-        </div>
+        <>
+        <MetaData location={location} />
+        <Layout isHome={true}>
+            <div className="container">
+                <section className="post-feed">
+                    {tags.map(({ node }) => (
+                        // The tag below includes the markup for each post - components/common/PostCard.js
+                        <TagCard key={node.id} tag={node} />
+                    ))}
+                </section>
+                <Pagination pageContext={pageContext} />
+            </div>
+        </Layout>
+    </>
     )
 }
 

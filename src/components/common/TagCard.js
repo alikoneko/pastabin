@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'
 import { Link } from 'gatsby'
 
 const TagCard = ({ tag }) => {
-    const url = `/tags/${tag.slug}/`
+    const url = `/tag/${tag.slug}/`
 
     return (
         <Link to={url} className="post-card">
             <header className="post-card-header">
-                {post.feature_image &&
+                {tag.feature_image &&
                     <div className="post-card-image" style={{
                         backgroundImage: `url(${tag.feature_image})` ,
                     }}></div>}
@@ -17,6 +17,7 @@ const TagCard = ({ tag }) => {
             <section className="post-card-excerpt">{tag.description}</section>
             <footer className="post-card-footer">
                 <div className="post-card-footer-left">
+                    &nbsp;
                 </div>
                 <div className="post-card-footer-right">
                     <div>Posts tagged: {tag.postCount}</div>
@@ -26,7 +27,7 @@ const TagCard = ({ tag }) => {
     )
 }
 
-PostCard.propTypes = {
+TagCard.propTypes = {
     tag: PropTypes.shape({
         slug: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
@@ -36,4 +37,4 @@ PostCard.propTypes = {
     }).isRequired,
 }
 
-export default PostCard
+export default TagCard

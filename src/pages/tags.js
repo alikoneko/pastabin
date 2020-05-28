@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, graphql } from 'gatsby'
 import PropTypes from 'prop-types'
-import { Layout } from '../components/common'
+import { Layout, PostCard } from '../components/common'
 const url = `/tag/`
 const TagsPage = ({
     data: {
@@ -14,10 +14,15 @@ const TagsPage = ({
                 Tags<br/>
             </h1>
             <ul>
-                {group.map(tag => (
-                    tag.nodes.map(t => <li><Link to={url + t.slug}>{t.name}</Link></li>) 
+                {
+                    group.map(function(nodes){
+                        return nodes.nodes.map(tag => (
+                            <li>{tag.name}</li>
+                                )
+                            )
+                        }
                     )
-                )}
+                }
             </ul>
         </div>
     </Layout>
@@ -25,28 +30,42 @@ const TagsPage = ({
 
 TagsPage.propTypes = {
     data: PropTypes.shape({
-        group: PropTypes.arrayOf(
-            PropTypes.shape({
-                slug: PropTypes.string.isRequired,
-                name: PropTypes.string.isRequired,
-                count: PropTypes.number.isRequired
-            }),
-        ),
+        allGhostTag: PropTypes.shape({
+            group: PropTypes.arrayOf(
+                PropTypes.shape({
+                    name: PropTypes.shape.isRequired
+                }).isRequired
+            )
+        })
     })
 }
 
 export default TagsPage
 
+// export const pageQuery = graphql`
+//     query {
+//         allGhostTag(limit: 2000, sort: {order: DESC}) {
+//             group(field: name) {
+//                 nodes {
+//                     slug
+//                     name
+//                     count {
+//                         posts
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// `
+
 export const pageQuery = graphql`
-    query {
-        allGhostTag(limit: 2000, sort: {order: DESC}) {
+    query{
+        allGhostTag(sort:{ order: DESC, fields: postCount }){
             group(field: name) {
                 nodes {
-                    slug
                     name
-                    count {
-                        posts
-                    }
+                    slug
+                    postCount
                 }
             }
         }
